@@ -22,10 +22,40 @@ class HomeScreenState extends State<HomeScreen> {
     RadioTab(),
     TimeTab(),
   ];
+
+  List<String> backgroundImagesNames = [
+    'quran_background',
+    'hadeth_background',
+    'sebha_background',
+    'radio_background',
+    'time_background',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: tabs[currentIndex],
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              'assets/images/${backgroundImagesNames[currentIndex]}.png',
+            ),
+            fit: BoxFit.fill,
+          ),
+        ),
+        child: Column(
+          children: [
+            Image.asset(
+              'assets/images/header.png',
+              height: MediaQuery.sizeOf(context).height * 0.15,
+              fit: BoxFit.fitWidth,
+            ),
+
+            tabs[currentIndex],
+          ],
+        ),
+      ),
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (index) {
