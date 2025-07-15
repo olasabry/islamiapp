@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:islamiapp/nav_bar_selected_icon.dart';
 import 'package:islamiapp/nav_bar_unselected_icon.dart';
 import 'package:islamiapp/tabs/hadeth_tab.dart';
-import 'package:islamiapp/tabs/quran_tab.dart';
+import 'package:islamiapp/tabs/quran/quran_tab.dart';
 import 'package:islamiapp/tabs/radio_tab.dart';
 import 'package:islamiapp/tabs/sebha_tab.dart';
 import 'package:islamiapp/tabs/time_tab.dart';
@@ -50,8 +50,7 @@ class HomeScreenState extends State<HomeScreen> {
               height: MediaQuery.sizeOf(context).height * 0.15,
               fit: BoxFit.fitWidth,
             ),
-
-            tabs[currentIndex],
+            Expanded(child: tabs[currentIndex]),
           ],
         ),
       ),
