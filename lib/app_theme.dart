@@ -9,6 +9,17 @@ class AppTheme {
 
   static ThemeData darkTheme = ThemeData(
     primaryColor: primary,
+    scaffoldBackgroundColor: black,
+    appBarTheme: AppBarTheme(
+      backgroundColor: black,
+      foregroundColor: primary,
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: primary,
+      ),
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: primary,
       type: BottomNavigationBarType.fixed,
