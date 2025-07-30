@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:islamiapp/tabs/quran/sura.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuranService {
   static List<String> arabicSuraNames = [
@@ -355,6 +356,7 @@ class QuranService {
     114,
     (index) => getSuraFromIndex(index),
   );
+  static List<Sura> mostRecentlySuras = [];
 
   static Sura getSuraFromIndex(int index) => Sura(
     englishNames: englishSuraNames[index],
@@ -375,4 +377,31 @@ class QuranService {
 
   static Future<String> loadSuraFile(int suraNum) =>
       rootBundle.loadString('assets/text/$suraNum.txt');
+
+  static Future<void> getMostRecentlySuras() async {
+    SharedPreferences sharedPref = await SharedPreferences.getInstance();
+    List<String>? mostRecntlyIndexes = sharedPref.getStringList(
+      'mostRecntlyIndexes',
+    );
+    if (mostRecntlyIndexes == null) return;
+    mostRecentlySuras = mostRecntlyIndexes.map((indexString) {
+      int index = int.parse(indexString);
+      Sura sura = getSuraFromIndex(index);
+      return sura;
+    }).toList();
+  }
+
+  static Future<void> addSuraToMostRecently(Sura sura) async {
+    bool alreadyExist = mostRecentlySuras.any(
+      (mostRecentlySuras) => mostRecentlySuras.num == sura.num,
+    );
+    if (!alreadyExist) {
+      mostRecentlySuras.add(sura);
+      List<String> mostRecntlyIndexes = mostRecentlySuras
+          .map((sura) => (sura.num - 1).toString())
+          .toList();
+      SharedPreferences sharedPref = await SharedPreferences.getInstance();
+      sharedPref.setStringList('mostRecntlyIndexes', mostRecntlyIndexes);
+    }
+  }
 }

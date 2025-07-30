@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:islamiapp/app_theme.dart';
 import 'package:islamiapp/home_screen.dart';
+import 'package:islamiapp/tabs/quran/quran_service.dart';
 import 'package:islamiapp/tabs/quran/sura_detalis_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await QuranService.getMostRecentlySuras();
   runApp(IslamiApp());
 }
 
