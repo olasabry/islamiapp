@@ -21,7 +21,7 @@ class RadioTab extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TabBar(
-                dividerColor: const Color.fromARGB(70, 0, 0, 0),
+                dividerColor: Colors.black,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicator: BoxDecoration(
                   color: Color(0xFFE2BE7F),
