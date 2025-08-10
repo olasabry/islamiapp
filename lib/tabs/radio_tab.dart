@@ -1,113 +1,63 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:islamiapp/widgets/radio_item.dart';
+import 'package:islamiapp/app_theme.dart';
+import 'package:islamiapp/tabs/radio/radio_list.dart';
+import 'package:islamiapp/tabs/radio/reciters_list.dart';
 
 class RadioTab extends StatelessWidget {
-  const RadioTab({super.key});
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.sizeOf(context);
     return DefaultTabController(
-      initialIndex: 0,
       length: 2,
+
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Color(0xb3202020),
+                color: AppTheme.black.withValues(alpha: 0.70),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TabBar(
-                dividerColor: const Color.fromARGB(70, 0, 0, 0),
-                indicatorSize: TabBarIndicatorSize.tab,
+                labelStyle: Theme.of(
+                  context,
+                ).textTheme.titleSmall!.copyWith(color: AppTheme.black),
+                unselectedLabelStyle: Theme.of(context).textTheme.titleSmall,
+                dividerColor: Colors.transparent,
+
                 indicator: BoxDecoration(
-                  color: Color(0xFFE2BE7F),
+                  color: AppTheme.primary,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                unselectedLabelStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
-                ),
-                labelStyle: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+
+                indicatorSize: TabBarIndicatorSize.tab,
+
                 tabs: [
-                  Tab(text: 'Radio'),
-                  Tab(text: 'Reciters'),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 11, horizontal: 22),
+                    child: Text("Radio"),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 11, horizontal: 22),
+                    child: Text("Reciters"),
+                  ),
                 ],
               ),
             ),
 
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 8),
-              padding: EdgeInsets.all(8),
-              height: screenSize.height * 0.15,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/details_footer.png'),
-                  fit: BoxFit.fill,
-                ),
-                color: Color(0xFFE2BE7F),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'Radio Ibrahim Al-Akdar',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Spacer(),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.favorite,
-                          size: 30,
-                          color: Colors.black,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.play_arrow,
-                          size: 30,
-                          color: Colors.black,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.volume_up,
-                          size: 30,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: screenSize.height * 0.02),
-            Container(
-              height: screenSize.height * 0.06,
-              width: double.infinity,
+            Expanded(
               child: TabBarView(
                 children: [
-                  ListView.builder(
-                    itemBuilder: (context, index) => RadioItem(),
-                    itemCount: 20,
+                  ListView.separated(
+                    itemBuilder: (_, _) => RadioList(),
+                    separatorBuilder: (_, _) => SizedBox(height: 8),
+                    itemCount: 10,
+                  ),
+
+                  ListView.separated(
+                    itemBuilder: (_, _) => RecitersList(),
+                    separatorBuilder: (_, _) => SizedBox(height: 8),
+                    itemCount: 10,
                   ),
                 ],
               ),

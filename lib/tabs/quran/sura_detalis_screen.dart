@@ -54,7 +54,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
           ),
           Expanded(
             child: ayat.isEmpty
-                ? LoadingIndicator()
+                ? LoadingIndicator(color: AppTheme.primary)
                 : ListView.separated(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     itemBuilder: (__, index) => Text(
